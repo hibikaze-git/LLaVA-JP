@@ -1,0 +1,46 @@
+#!/bin/bash
+
+accelerate launch --config_file configs/accelerate/pretrain/accelerate_config_zero1.yaml \
+train_llava.py \
+    --base_model llama \
+    --model_name_or_path hatakeyama-llm-team/Tanuki-8B \
+    --version plain \
+    --freeze_backbone False \
+    --tune_mm_mlp_adapter True \
+    --vision_tower google/siglip-so400m-patch14-384 \
+    --mm_vision_select_layer -2 \
+    --mm_projector_type mlp2x_gelu \
+    --mm_vision_select_feature patch \
+    --data_path ./dataset/v0/llava_pretrain_stair.json \
+    --lazy_preprocess False \
+    --is_multimodal True \
+    --image_folder ./dataset/v0/images/stage1 \
+    --image_aspect_ratio square \
+    --optim adamw_torch \
+    --double_quant True \
+    --quant_type nf4 \
+    --bits 16 \
+    --lora_enable False \
+    --group_by_modality_length False \
+    --fp16 False \
+    --bf16 True \
+    --output_dir ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-v0-siglip-so400m-patch14-384 \
+    --num_train_epochs 1 \
+    --per_device_train_batch_size 32 \
+    --per_device_eval_batch_size 4 \
+    --gradient_accumulation_steps 2 \
+    --evaluation_strategy "no" \
+    --save_strategy "steps" \
+    --save_steps 25 \
+    --save_total_limit 100 \
+    --learning_rate 1e-3 \
+    --weight_decay 0. \
+    --warmup_ratio 0.03 \
+    --logging_steps 10 \
+    --model_max_length 8192 \
+    --gradient_checkpointing True \
+    --dataloader_num_workers 16 \
+    --lr_scheduler_type "cosine" \
+    --use_wandb \
+    --wandb_project llava-jp-stage1 \
+    --wandb_name Tanuki-8B-vision-v0

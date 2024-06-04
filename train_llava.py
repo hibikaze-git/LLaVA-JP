@@ -117,6 +117,11 @@ def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer,
         data_path=data_args.data_path,
         data_args=data_args
     )
+
+    print("--- dataset info ---")
+    print(len(train_dataset))
+    print("--------------------")
+
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
     return dict(train_dataset=train_dataset,
                 eval_dataset=None,
@@ -267,6 +272,21 @@ def train():
         data_args.image_size = data_args.image_processor.size["height"]
     data_module = make_supervised_data_module(tokenizer=tokenizer,
                                               data_args=data_args)
+
+    if training_args.use_wandb:
+        import deepspeed
+        from deepspeed.accelerator import get_accelerator
+
+        is_local_rank_0 = (torch.distributed.get_rank() % get_accelerator().device_count() == 0) if torch.distributed.is_initialized() else True
+
+        if is_local_rank_0:
+            import wandb
+
+            wandb.init(entity=training_args.wandb_entity, project=training_args.wandb_project,
+                group=training_args.wandb_group, name=training_args.wandb_name,
+                tags=[training_args.wandb_tag] if training_args.wandb_tag else None)
+
+
     trainer = LLaVATrainer(model=model,
                     tokenizer=tokenizer,
                     args=training_args,

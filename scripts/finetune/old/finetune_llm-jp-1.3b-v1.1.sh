@@ -7,14 +7,16 @@ python train_llava.py \
     --tune_mm_mlp_adapter False \
     --vision_tower google/siglip-so400m-patch14-384 \
     --mm_vision_select_layer -2 \
-    --pretrain_mm_mlp_adapter ./output_llava/checkpoints/pretrain-llava-jp-1.3b-v1-siglip-so400m-patch14-384/mm_projector.bin \
+    --pretrain_mm_mlp_adapter ./output_llava/checkpoints/pretrain-llava-jp-1.3b-v1.1-siglip-so400m-patch14-384/mm_projector.bin \
     --mm_projector_type mlp2x_gelu \
     --mm_vision_select_feature patch \
+    --scales 1.0 0.5 \
     --data_path ./dataset/llava_v1_5_instruct_620k_ja_v2.json \
     --lazy_preprocess False \
     --is_multimodal True \
     --image_folder ~/datasets \
     --image_aspect_ratio square \
+    --image_size 768 \
     --optim adamw_bnb_8bit \
     --double_quant True \
     --quant_type nf4 \
@@ -23,7 +25,7 @@ python train_llava.py \
     --group_by_modality_length True \
     --fp16 False \
     --bf16 True \
-    --output_dir ./output_llava/checkpoints/finetune-llava-jp-1.3b-v1-siglip-so400m-patch14-384 \
+    --output_dir ./output_llava/checkpoints/finetune-llava-jp-1.3b-v1.1-siglip-so400m-patch14-384 \
     --num_train_epochs 1 \
     --per_device_train_batch_size 1 \
     --per_device_eval_batch_size 2 \
@@ -39,4 +41,7 @@ python train_llava.py \
     --model_max_length 1532 \
     --gradient_checkpointing True \
     --dataloader_num_workers 16 \
-    --lr_scheduler_type "cosine"
+    --lr_scheduler_type "cosine" \
+    --use_wandb \
+    --wandb_project llava-jp-finetune-test \
+    --wandb_name llm_jp_v1_1

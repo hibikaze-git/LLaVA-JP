@@ -1,0 +1,5 @@
+{
+    "base_model": "llama",
+    "model_name_or_path": "./output_llava/checkpoints/finetune-llava-jp-Tanuki-8B-vision-cc300k_j-vg-vqa-s2_siglip_256",
+    "model_max_length": 8192
+}

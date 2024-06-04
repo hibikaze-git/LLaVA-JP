@@ -1,0 +1,33 @@
+services:
+  ubuntu-cuda:
+    build: ./docker
+    environment:
+      #- DISPLAY=$DISPLAY
+      - HF_TOKEN=
+      - WANDB_API_KEY=
+      #- NCCL_P2P_DISABLE="1"
+      #- NCCL_IB_DISABLE="1"
+    volumes:
+      #./home:/homeだと、dockerユーザを作った時にcondaがactiveにならない
+      - .:/home/docker/LLaVA-JP
+      #- /tmp/.X11-unix/:/tmp/.X11-unix:ro
+    working_dir: /home/docker/LLaVA-JP
+    tty: true
+    #ports:
+      #- 8888:8888
+      #- 6006:6006
+    #profiles:
+      #- preprocessing
+    #privileged: true
+    #devices:
+      #- /dev/video0:/dev/video0
+    shm_size: '16gb'
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            #device_ids: ['0', '1']
+            device_ids: ['1']
+            capabilities: [gpu]
+    #command: jupyter-lab --port=8888 --ip=0.0.0.0 --allow-root --NotebookApp.token=''

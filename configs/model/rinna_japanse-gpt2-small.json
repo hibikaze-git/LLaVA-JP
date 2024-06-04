@@ -1,0 +1,5 @@
+{
+    "base_model": "gpt2",
+    "model_name_or_path": "rinna/japanese-gpt2-small",
+    "model_max_length": 1024
+}

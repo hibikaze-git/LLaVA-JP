@@ -1,0 +1,5 @@
+{
+    "vision_tower": "google/siglip-base-patch16-256-multilingual",
+    "scales": [1.0, 0.6675, 0.334],
+    "image_size": 768
+}

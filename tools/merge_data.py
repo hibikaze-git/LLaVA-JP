@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 if __name__ == '__main__':
-    dataset_dir = './'
+    dataset_dir = './dataset/v0'
     marge_path1 = Path(dataset_dir, "LLaVA-CC3M-Pretrain-595K", 'chat_ja_calm2.json')
     marge_path2 = Path(dataset_dir, "LLaVA-Stair-Caption", 'llava_stair_caption.json')
 

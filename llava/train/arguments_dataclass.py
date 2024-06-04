@@ -84,3 +84,9 @@ class TrainingArguments(transformers.TrainingArguments):
     dataloader_num_workers: int = field(default=16)
     lr_scheduler_type: str = field(default="cosine")
     seed: int = field(default=42)
+    use_wandb: bool = False
+    wandb_entity: Optional[str] = None
+    wandb_project: Optional[str] = None
+    wandb_name: Optional[str] = None
+    wandb_group: Optional[str] = None
+    wandb_tag: Optional[str] = None
