@@ -1,0 +1,5 @@
+{
+    "vision_tower": "google/siglip-so400m-patch14-384",
+    "scales": [1.0, 0.5],
+    "image_size": 768
+}

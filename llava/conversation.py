@@ -189,7 +189,7 @@ conv_vicuna_v1 = Conversation(
     offset=0,
     sep_style=SeparatorStyle.TWO,
     sep=" ",
-    sep2="<EOD|LLM-jp>", # if you use llm-jp : <EOD|LLM-jp>, gpt2 and gpt_neox: </s>
+    sep2="</s>", # if you use llm-jp : <EOD|LLM-jp>, gpt2 and gpt_neox: </s>
 )
 
 conv_llava_plain = Conversation(

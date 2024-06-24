@@ -1,0 +1,4 @@
+{
+    "data_path": "/storage5/shiraishi/LLaVA-JP/dataset/LLaVA-CC-300k-Caption/llava_cc_300k_caption.json",
+    "image_folder": "/storage5/shiraishi/LLaVA-JP/dataset/images/cc_300k"
+}

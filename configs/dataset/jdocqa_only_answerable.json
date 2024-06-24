@@ -1,0 +1,4 @@
+{
+    "data_path": "./dataset/jdocqa/jdocqa_only_answerable.json",
+    "image_folder": "./dataset/jdocqa/images"
+}

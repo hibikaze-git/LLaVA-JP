@@ -183,15 +183,34 @@ class LazySupervisedDataset(Dataset):
         data_args: DataArguments,
     ):
         super(LazySupervisedDataset, self).__init__()
-        
-        list_data_dict = json.load(open(data_path, "r"))
+
+        list_data_dict = []
+
+        if ".jsonl" in data_path:
+            with open(data_path, 'r') as file:
+                for line in file:
+                    list_data_dict.append(json.loads(line.strip()))
+        else:
+            list_data_dict = json.load(open(data_path, "r"))
 
         from pathlib import Path
 
         print("Formatting inputs...Skip in lazy mode")
         self.tokenizer = tokenizer
-        self.list_data_dict = [i for i in list_data_dict if Path(data_args.image_folder, i['image']).is_file()]
+
+        self.all_image_paths = self.get_all_image_paths(data_args.image_folder)
+        self.list_data_dict = [i for i in list_data_dict if i['image'] in self.all_image_paths]
+
         self.data_args = data_args
+
+    def get_all_image_paths(self, image_folder):
+        image_paths = {}
+        for root, dirs, files in os.walk(image_folder):
+            for file in files:
+                if file in image_paths:
+                    raise ValueError(f"Duplicate image file name found: {file}")
+                image_paths[file] = os.path.join(root, file)
+        return image_paths
 
     def __len__(self):
         return len(self.list_data_dict)
@@ -220,9 +239,9 @@ class LazySupervisedDataset(Dataset):
         assert len(sources) == 1, "Don't know why it is wrapped to a list"  # FIXME
         if 'image' in sources[0]:
             image_file = self.list_data_dict[i]['image']
-            image_folder = self.data_args.image_folder
             processor = self.data_args.image_processor
-            image = Image.open(os.path.join(image_folder, image_file)).convert('RGB')
+            image_path = self.all_image_paths[image_file]
+            image = Image.open(image_path).convert('RGB')
             if self.data_args.image_aspect_ratio == 'pad':
                 def expand2square(pil_img, background_color):
                     width, height = pil_img.size

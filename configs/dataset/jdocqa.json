@@ -1,0 +1,4 @@
+{
+    "data_path": "./dataset/jdocqa/jdocqa.json",
+    "image_folder": "./dataset/jdocqa/images"
+}

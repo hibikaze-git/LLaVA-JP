@@ -1,3 +1,110 @@
+# リポジトリについて
+[LLaVA-JP](https://github.com/tosiyuki/LLaVA-JP)に変更を加えたリポジトリです。tosiyuki様に感謝します。  
+主な変更点は以下のとおりです。  
+- データ準備用スクリプト追加
+- wandbとの連携
+- docker関連ファイルの追加
+- データ読み込みの周りの調整
+
+# 使い方
+## インストール
+```
+git clone https://github.com/hibikaze-git/LLaVA-JP.git
+```
+
+## 環境構築
+### docker
+- docker-compose.ymlのenvironmentとdevice_idsを環境に合わせて変更し、以下を実行
+- WANDB_API_KEYは必須
+```
+docker compose build
+docker compose up -d
+docker compose exec ubuntu-cuda bash
+```
+
+### docker以外
+- ./docker/Dockerfileを参照して環境構築
+- wandb loginしておく
+
+## データの準備
+- 以下を実行し、STAIR Captions(商用利用可能な画像のみ), Japanese Visual Genome VQA datasetを./datasetに配置
+- Stage1: 11k, Stage2: 800k
+```
+bash prepare_datasets/v0.sh
+```
+
+## 学習
+### Stage1(事前学習)
+シングルGPU
+```
+bash scripts/pretrain/pretrain.sh \
+    ./configs/train/pretrain/base.json \
+    ./configs/image_encoder/siglip-base-patch16-256-multilingual.json \
+    ./configs/dataset/cc300k.json \
+    ./configs/model/tanuki-8b.json \
+    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-cc300k-s2_siglip_256 \
+    llava-jp-stage1 \
+    Tanuki-8B-vision-cc300k-s2_siglip_256
+```
+マルチGPU（./configs/accelerate_config_zero1.yamlを環境に合わせて変更）
+```
+bash scripts/pretrain/pretrain_accelerate.sh \
+    ./configs/train/pretrain/base.json \
+    ./configs/image_encoder/siglip-base-patch16-256-multilingual.json \
+    ./configs/dataset/cc300k.json \
+    ./configs/model/tanuki-8b.json \
+    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-cc300k-s2_siglip_256 \
+    llava-jp-stage1 \
+    Tanuki-8B-vision-cc300k-s2_siglip_256
+```
+
+### Stage2(ファインチューニング)
+--pretrain_mm_mlp_adapterを適宜変更して実行  
+<br/>
+シングルGPU
+```
+bash scripts/finetune/finetune.sh \
+    ./configs/train/finetune/base.json \
+    ./configs/image_encoder/siglip-base-patch16-256-multilingual.json \
+    ./configs/dataset/ja-vg-vqa.json \
+    ./configs/model/tanuki-8b.json \
+    ./output_llava/checkpoints/finetune-llava-jp-Tanuki-8B-vision-cc300k_j-vg-vqa-s2_siglip_256 \
+    llava-jp-stage2 \
+    Tanuki-8B-vision-cc300k_j-vg-vqa-s2_siglip_256 \
+    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-cc300k-s2_siglip_256/mm_projector.bin
+```
+マルチGPU（./configs/accelerate_config_zero1.yamlを環境に合わせて変更）
+```
+bash scripts/finetune/finetune_accelerate.sh \
+    ./configs/train/finetune/base.json \
+    ./configs/image_encoder/siglip-base-patch16-256-multilingual.json \
+    ./configs/dataset/ja-vg-vqa.json \
+    ./configs/model/tanuki-8b.json \
+    ./output_llava/checkpoints/finetune-llava-jp-Tanuki-8B-vision-cc300k_j-vg-vqa-s2_siglip_256 \
+    llava-jp-stage2 \
+    Tanuki-8B-vision-cc300k_j-vg-vqa-s2_siglip_256 \
+    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-cc300k-s2_siglip_256/mm_projector.bin
+```
+
+### モデルのアップロード
+- まずhuggingfaceにモデル用のリポジトリを新規作成して置く必要がある
+- アップロードにはupload_model.pyを使用する。GPUは不要
+- モデルの保存先、リポジトリ名を変更する
+
+## モデルの使い方
+- demo_llava_gradio.pyを使用することで入出力を試せる
+- Enter model path: と表示されるので、huggingfaceのリポジトリ名入力
+- gradioがインストールされていれば、以下を実行し、localhost:7860などで画面にアクセスできる
+
+```
+python upload_model.py ./path/to/local/folder your-username/your-repo-id
+```
+
+<br/>
+
+<br/>
+
+以下、LLaVA-JPのREADME原文です。
 # LLaVA-JP
 LLaVAの手法を使用して[llm-jp/llm-jp-1.3b-v1.0](https://huggingface.co/llm-jp/llm-jp-1.3b-v1.0)のような軽量なLLMをベースに画像に対応したマルチモーダルなLVLMを学習させるためのコードです。
 
