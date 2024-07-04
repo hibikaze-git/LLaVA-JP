@@ -82,9 +82,6 @@ VISION_TOWER=$(jq -r '.vision_tower' $IMAGE_ENCODER_CONFIG_FILE)
 SCALES=$(jq -r '.scales | @tsv' $IMAGE_ENCODER_CONFIG_FILE)
 IMAGE_SIZE=$(jq -r '.image_size' $IMAGE_ENCODER_CONFIG_FILE)
 
-DATA_PATH=$(jq -r '.data_path' $DATASET_CONFIG_FILE)
-IMAGE_FOLDER=$(jq -r '.image_folder' $DATASET_CONFIG_FILE)
-
 BASE_MODEL=$(jq -r '.base_model' $MODEL_CONFIG_FILE)
 MODEL_NAME_OR_PATH=$(jq -r '.model_name_or_path' $MODEL_CONFIG_FILE)
 MODEL_MAX_LENGTH=$(jq -r '.model_max_length' $MODEL_CONFIG_FILE)
@@ -102,10 +99,9 @@ python train_llava.py \
     --pretrain_mm_mlp_adapter "$PRETRAIN_MM_MLP_ADAPTER" \
     --mm_projector_type "$MM_PROJECTOR_TYPE" \
     --mm_vision_select_feature "$MM_VISION_SELECT_FEATURE" \
-    --data_path "$DATA_PATH" \
+    --dataset_paths $(jq -c '.' $DATASET_CONFIG_FILE) \
     --lazy_preprocess "$LAZY_PREPROCESS" \
     --is_multimodal "$IS_MULTIMODAL" \
-    --image_folder "$IMAGE_FOLDER" \
     --image_aspect_ratio "$IMAGE_ASPECT_RATIO" \
     --optim "$OPTIM" \
     --model_max_length "$MODEL_MAX_LENGTH" \

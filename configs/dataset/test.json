@@ -1,0 +1,12 @@
+{
+    "test1": {
+        "data_path": "./dataset/jdocqa/jdocqa.json",
+        "image_folder": "./dataset/jdocqa/images",
+        "data_num": 1000
+    },
+    "test2": {
+        "data_path": "./dataset/v0/llava_visual_genome_ja.json",
+        "image_folder": "./dataset/v0/images/stage2",
+        "data_num": 100000
+    }
+}

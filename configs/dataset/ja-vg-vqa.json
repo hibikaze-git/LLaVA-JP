@@ -1,4 +1,6 @@
 {
-    "data_path": "./dataset/v0/llava_visual_genome_ja.json",
-    "image_folder": "./dataset/v0/images/stage2"
+    "ja-vg-vqa": {
+        "data_path": "./dataset/v0/llava_visual_genome_ja.json",
+        "image_folder": "./dataset/v0/images/stage2"
+    }
 }

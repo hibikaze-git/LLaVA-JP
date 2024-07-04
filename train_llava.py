@@ -1,3 +1,4 @@
+import json
 import os
 import pathlib
 from typing import Dict
@@ -114,7 +115,7 @@ def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer,
     """Make dataset and collator for supervised fine-tuning."""
     train_dataset = LazySupervisedDataset(
         tokenizer=tokenizer,
-        data_path=data_args.data_path,
+        dataset_paths=json.loads(data_args.dataset_paths),
         data_args=data_args
     )
 

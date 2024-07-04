@@ -1,4 +1,6 @@
 {
-    "data_path": "./dataset/v0/llava_pretrain_stair.json",
-    "image_folder": "./dataset/v0/images/stage1"
+    "stair": {
+        "data_path": "./dataset/v0/llava_pretrain_stair.json",
+        "image_folder": "./dataset/v0/images/stage1"
+    }
 }
