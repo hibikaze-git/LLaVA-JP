@@ -1,6 +1,7 @@
 import copy
 import json
 import os
+import random
 
 from dataclasses import dataclass
 from typing import Dict
@@ -178,28 +179,52 @@ class LazySupervisedDataset(Dataset):
     """Dataset for supervised fine-tuning."""
 
     def __init__(
-        self, data_path: str,
+        self, dataset_paths: Dict[str, Dict[str, str]],
         tokenizer: transformers.PreTrainedTokenizer,
         data_args: DataArguments,
     ):
         super(LazySupervisedDataset, self).__init__()
 
-        list_data_dict = []
-
-        if ".jsonl" in data_path:
-            with open(data_path, 'r') as file:
-                for line in file:
-                    list_data_dict.append(json.loads(line.strip()))
-        else:
-            list_data_dict = json.load(open(data_path, "r"))
-
-        from pathlib import Path
-
         print("Formatting inputs...Skip in lazy mode")
         self.tokenizer = tokenizer
 
-        self.all_image_paths = self.get_all_image_paths(data_args.image_folder)
-        self.list_data_dict = [i for i in list_data_dict if i['image'] in self.all_image_paths]
+        self.image_paths_dict = {}
+
+        for dataset_name, dataset_path_dict in dataset_paths.items():
+            all_image_paths = self.get_all_image_paths(dataset_path_dict["image_folder"])
+            self.image_paths_dict[dataset_name] = all_image_paths
+
+        self.list_data_dict = []
+
+        for dataset_name, dataset_path_dict in dataset_paths.items():
+            list_subset_data_dict = []
+            data_path = dataset_path_dict["data_path"]
+
+            if ".jsonl" in data_path:
+                with open(data_path, 'r') as file:
+                    for line in file:
+                        item = json.loads(line.strip())
+
+                        # 画像が存在するか確認
+                        if item["image"] in self.image_paths_dict[dataset_name]:
+                            item["dataset_name"] = dataset_name
+                            list_subset_data_dict.append(item)
+            else:
+                for item in json.load(open(data_path, "r")):
+                    # 画像が存在するか確認
+                    if item["image"] in self.image_paths_dict[dataset_name]:
+                        item["dataset_name"] = dataset_name
+                        list_subset_data_dict.append(item)
+
+            data_num = dataset_path_dict.get("data_num")
+
+            if data_num is not None:
+                # データ数が指定された場合
+                random.seed(42)
+                random.shuffle(list_subset_data_dict)
+                list_subset_data_dict = list_subset_data_dict[:data_num]
+
+            self.list_data_dict.extend(list_subset_data_dict)
 
         self.data_args = data_args
 
@@ -240,7 +265,7 @@ class LazySupervisedDataset(Dataset):
         if 'image' in sources[0]:
             image_file = self.list_data_dict[i]['image']
             processor = self.data_args.image_processor
-            image_path = self.all_image_paths[image_file]
+            image_path = self.image_paths_dict[self.list_data_dict[i]['dataset_name']][image_file]
             image = Image.open(image_path).convert('RGB')
             if self.data_args.image_aspect_ratio == 'pad':
                 def expand2square(pil_img, background_color):

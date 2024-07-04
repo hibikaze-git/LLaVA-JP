@@ -1,4 +1,6 @@
 {
-    "data_path": "./dataset/jdocqa/jdocqa_only_answerable.json",
-    "image_folder": "./dataset/jdocqa/images"
+    "jdocqa_only_answerable": {
+        "data_path": "./dataset/jdocqa/jdocqa_only_answerable.json",
+        "image_folder": "./dataset/jdocqa/images"
+    }
 }

@@ -22,12 +22,10 @@ class ModelArguments:
 
 @dataclass
 class DataArguments:
-    data_path: str = field(default="",
-                           metadata={"help": "Path to the training data."})
+    # demoで流用できるようにするため、dataset_pathsがOptionalとなっている
+    dataset_paths: Optional[str] = field(default=None, metadata={"help": "Path to the training data."})
     lazy_preprocess: bool = False
     is_multimodal: bool = False
-    image_folder: Optional[str] = field(default="/home/toshi/work/llava_jp/input/LLaVA-CC3M-Pretrain-595K/images",
-                                        metadata={"help": "Path to image data."})
     image_aspect_ratio: str = 'square'
     image_size: Optional[int] = None
 
