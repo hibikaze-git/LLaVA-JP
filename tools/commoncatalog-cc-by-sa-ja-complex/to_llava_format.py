@@ -3,7 +3,7 @@ commoncatalog-cc-by-sa-ja-complexの準備
 python tools/commoncatalog-cc-by-sa-ja-complex/to_llava_format.py
 
 ========== count qa pairs ==========
-qu_ja 29999
+question_ja 55023
 ====================================
 """
 
