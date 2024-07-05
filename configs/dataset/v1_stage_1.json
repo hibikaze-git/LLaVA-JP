@@ -1,0 +1,14 @@
+{
+    "stair": {
+        "data_path": "./dataset/v0/llava_pretrain_stair.json",
+        "image_folder": "./dataset/v0/images/stage1"
+    },
+    "cc300k": {
+        "data_path": "./dataset/commoncatalog-cc-by/llava_cc_300k_caption.json",
+        "image_folder": "./dataset/commoncatalog-cc-by/cc_300k"
+    },
+    "commoncatalog-cc-by-sa-ja": {
+        "data_path": "./dataset/commoncatalog-cc-by-sa-ja/briefly_ja.json",
+        "image_folder": "/storage4/work/yamaguchi/create-data-for-vlm/datasets/commoncatalog-cc-by-sa/images"
+    }
+}
