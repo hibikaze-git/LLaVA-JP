@@ -3,7 +3,7 @@ commoncatalog-cc-by-sa-ja-complexの準備
 python tools/commoncatalog-cc-by-sa-ja-complex/to_llava_format.py
 
 ========== count qa pairs ==========
-question_ja 55023
+question_ja 55005
 ====================================
 """
 
@@ -58,9 +58,13 @@ if __name__ == "__main__":
     for data in dataset["train"]:
         image_filename = str(data["photoid"]) + "." + data["ext"]
         for key in INSTRUCTIONS.keys():
-            llava_formats[key].append(
-                create_llava_format(data[key], data["answer_ja"], image_filename)
-            )
+            answer = data["answer_ja"]
+
+            # 文章が長過ぎるデータは除去
+            if len(answer) <= 2000:
+                llava_formats[key].append(
+                    create_llava_format(data[key], answer, image_filename)
+                )
 
     print("========== count qa pairs ==========")
     for key, item in llava_formats.items():

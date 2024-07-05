@@ -3,9 +3,9 @@ commoncatalog-cc-by-sa-jaの準備
 python tools/commoncatalog-cc-by-sa-ja/to_llava_format.py
 
 ========== count qa pairs ==========
-briefly_ja 195616
-detail_ja 195616
-predict_ja 187422
+briefly_ja 195576
+detail_ja 195379
+predict_ja 187155
 ====================================
 """
 
@@ -66,9 +66,11 @@ if __name__ == "__main__":
                 # 不要なデータを除去
                 continue
 
-            llava_formats[key].append(
-                create_llava_format(INSTRUCTIONS[key], data[key], image_filename)
-            )
+            # 文章が長過ぎるデータは除去
+            if len(answer) <= 2000:
+                llava_formats[key].append(
+                    create_llava_format(INSTRUCTIONS[key], answer, image_filename)
+                )
 
     print("========== count qa pairs ==========")
     for key, item in llava_formats.items():
