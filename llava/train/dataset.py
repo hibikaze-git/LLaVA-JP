@@ -18,6 +18,8 @@ from llava import conversation as conversation_lib
 from llava.constants import DEFAULT_IMAGE_TOKEN, IGNORE_INDEX, IMAGE_TOKEN_INDEX
 from llava.train.arguments_dataclass import DataArguments
 
+from tqdm import tqdm
+
 
 def tokenizer_image_token(prompt, tokenizer, image_token_index=IMAGE_TOKEN_INDEX, return_tensors=None):
     prompt_chunks = [tokenizer(chunk).input_ids for chunk in prompt.split('<image>')]
@@ -231,7 +233,7 @@ class LazySupervisedDataset(Dataset):
     def get_all_image_paths(self, image_folder):
         image_paths = {}
         for root, dirs, files in os.walk(image_folder):
-            for file in files:
+            for file in tqdm(files):
                 if file in image_paths:
                     raise ValueError(f"Duplicate image file name found: {file}")
                 image_paths[file] = os.path.join(root, file)
