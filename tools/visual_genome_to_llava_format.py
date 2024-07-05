@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
             conversation_user = {
                 'from': 'ユーザー',
-                'value': f'{qas["question"]}\n<image>'
+                'value': f'{"1つの単語またはフレーズで回答してください。" + qas["question"]}\n<image>'
             }
             conversation_system = {
                 'from': 'システム',
