@@ -21,7 +21,7 @@
     "per_device_eval_batch_size": 2,
     "gradient_accumulation_steps": 8,
     "evaluation_strategy": "no",
-    "save_strategy": "epoch",
+    "save_strategy": "steps",
     "save_steps": 250,
     "save_total_limit": 1,
     "learning_rate": 0.00002,
