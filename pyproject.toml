@@ -18,4 +18,4 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = ["llavajp", "llavajp.model"]
+packages = find:
