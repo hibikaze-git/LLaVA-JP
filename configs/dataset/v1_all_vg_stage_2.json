@@ -1,7 +1,7 @@
 {
     "ja-vg-vqa": {
         "data_path": "./dataset/v0/llava_visual_genome_ja.json",
-        "image_folder": "./dataset/v0/images/stage2",
+        "image_folder": "./dataset/v0/images/stage2"
     },
     "commoncatalog-cc-by-sa-ja_detail": {
         "data_path": "./dataset/commoncatalog-cc-by-sa-ja/detail_ja.json",
