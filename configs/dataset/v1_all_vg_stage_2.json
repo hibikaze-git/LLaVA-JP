@@ -1,0 +1,26 @@
+{
+    "ja-vg-vqa": {
+        "data_path": "./dataset/v0/llava_visual_genome_ja.json",
+        "image_folder": "./dataset/v0/images/stage2",
+    },
+    "commoncatalog-cc-by-sa-ja_detail": {
+        "data_path": "./dataset/commoncatalog-cc-by-sa-ja/detail_ja.json",
+        "image_folder": "/storage4/work/yamaguchi/create-data-for-vlm/datasets/commoncatalog-cc-by-sa/images"
+    },
+    "commoncatalog-cc-by-sa-ja_predict": {
+        "data_path": "./dataset/commoncatalog-cc-by-sa-ja/predict_ja.json",
+        "image_folder": "/storage4/work/yamaguchi/create-data-for-vlm/datasets/commoncatalog-cc-by-sa/images"
+    },
+    "commoncatalog-cc-by-ext": {
+        "data_path": "./dataset/commoncatalog-cc-by-ext/phi3_caption_ja.json",
+        "image_folder": "./dataset/commoncatalog-cc-by/cc_300k"
+    },
+    "anime-with-caption-cc0": {
+        "data_path": "./dataset/anime-with-caption-cc0/phi3_caption_ja.json",
+        "image_folder": "./dataset/anime-with-caption-cc0/images"
+    },
+    "commoncatalog-cc-by-sa-ja-complex": {
+        "data_path": "./dataset/commoncatalog-cc-by-sa-ja-complex/question_ja.json",
+        "image_folder": "/storage4/work/yamaguchi/create-data-for-vlm/datasets/complex_reasoning/images"
+    }
+}
