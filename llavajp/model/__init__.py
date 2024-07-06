@@ -1,4 +1,1 @@
-try:
-    from .llava_llama import LlavaConfig, LlavaLlamaForCausalLM
-except:
-    pass
+from .llava_llama import LlavaLlamaForCausalLM
