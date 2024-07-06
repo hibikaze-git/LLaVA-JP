@@ -20,7 +20,7 @@ bash scripts/finetune/finetune_accelerate.sh \
     ./configs/train/finetune/batch_128.json \
     ./configs/image_encoder/siglip-base-patch16-256-multilingual.json \
     ./configs/dataset/v1_stage_2.json \
-    ./configs/model/Tanuki-8B-vision-cc300k_j-vg-vqa-s2_siglip_256.json \
+    ./configs/model/tanuki-8b.json \
     ./output_llava/checkpoints/finetune-llava-jp-Tanuki-8B-vision-v1 \
     llava-jp-stage2 \
     Tanuki-8B-vision-v1 \
