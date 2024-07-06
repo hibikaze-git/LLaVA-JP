@@ -17,5 +17,5 @@ dependencies = [
     "einops", "tqdm", "wandb", "gradio"
 ]
 
-[tool.setuptools]
-packages = find:
+[tool.setuptools.packages.find]
+exclude = ["configs", "dataset", "imgs", "*", "notebooks*", "prepare_datasets*", "sbatch*", "scripts*", "tools*"]
