@@ -7,7 +7,7 @@ from transformers import (
     CLIPVisionModel, CLIPImageProcessor, CLIPVisionConfig,\
     SiglipVisionModel, SiglipImageProcessor, SiglipVisionConfig
 )
-from llava.s2wrapper import forward as multiscale_forward
+from llavajp.s2wrapper import forward as multiscale_forward
 
 
 class CLIPVisionTower(nn.Module):

@@ -6,13 +6,13 @@ from typing import Dict
 import torch
 import transformers
 
-from llava import conversation as conversation_lib
-from llava.model.llava_gpt2 import LlavaGpt2ForCausalLM
-from llava.model.llava_gpt_neox import LlavaGptNeoxForCausalLM
-from llava.model.llava_llama import LlavaLlamaForCausalLM
-from llava.train.dataset import LazySupervisedDataset, DataCollatorForSupervisedDataset
-from llava.train.arguments_dataclass import ModelArguments, DataArguments, TrainingArguments
-from llava.train.llava_trainer import LLaVATrainer
+from llavajp import conversation as conversation_lib
+from llavajp.model.llava_gpt2 import LlavaGpt2ForCausalLM
+from llavajp.model.llava_gpt_neox import LlavaGptNeoxForCausalLM
+from llavajp.model.llava_llama import LlavaLlamaForCausalLM
+from llavajp.train.dataset import LazySupervisedDataset, DataCollatorForSupervisedDataset
+from llavajp.train.arguments_dataclass import ModelArguments, DataArguments, TrainingArguments
+from llavajp.train.llava_trainer import LLaVATrainer
 
 
 def rank0_print(*args):
