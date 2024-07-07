@@ -10,11 +10,6 @@ import transformers
 from llavajp.constants import DEFAULT_IMAGE_TOKEN, IMAGE_TOKEN_INDEX
 from llavajp.conversation import conv_templates
 from llavajp.model.llava_llama import LlavaLlamaForCausalLM
-from llavajp.train.arguments_dataclass import (
-    DataArguments,
-    ModelArguments,
-    TrainingArguments,
-)
 from llavajp.train.dataset import tokenizer_image_token
 
 # argparseがHfArgumentParserと干渉するので、inputで受け取る
@@ -23,12 +18,6 @@ model_path = input("Enter model path: ")
 # load model
 device = "cuda" if torch.cuda.is_available() else "cpu"
 torch_dtype = torch.bfloat16 if device == "cuda" else torch.float32
-
-parser = transformers.HfArgumentParser(
-    (ModelArguments, DataArguments, TrainingArguments)
-)
-
-model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
 model = LlavaLlamaForCausalLM.from_pretrained(
     model_path,
@@ -142,7 +131,7 @@ with gr.Blocks() as demo:
                 max_len = gr.Slider(
                     minimum=10,
                     maximum=256,
-                    value=50,
+                    value=200,
                     step=5,
                     interactive=True,
                     label="Max New Tokens",
@@ -151,7 +140,7 @@ with gr.Blocks() as demo:
                 temperature = gr.Slider(
                     minimum=0.0,
                     maximum=1.0,
-                    value=0.1,
+                    value=0.0,
                     step=0.1,
                     interactive=True,
                     label="Temperature",
@@ -160,7 +149,7 @@ with gr.Blocks() as demo:
                 top_p = gr.Slider(
                     minimum=0.5,
                     maximum=1.0,
-                    value=0.9,
+                    value=1.0,
                     step=0.1,
                     interactive=True,
                     label="Top p",
