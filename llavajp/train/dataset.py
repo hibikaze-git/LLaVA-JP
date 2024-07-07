@@ -14,9 +14,9 @@ import transformers
 from PIL import Image
 from torch.utils.data import Dataset
 
-from llava import conversation as conversation_lib
-from llava.constants import DEFAULT_IMAGE_TOKEN, IGNORE_INDEX, IMAGE_TOKEN_INDEX
-from llava.train.arguments_dataclass import DataArguments
+from llavajp import conversation as conversation_lib
+from llavajp.constants import DEFAULT_IMAGE_TOKEN, IGNORE_INDEX, IMAGE_TOKEN_INDEX
+from llavajp.train.arguments_dataclass import DataArguments
 
 from tqdm import tqdm
 

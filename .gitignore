@@ -4,3 +4,4 @@ wandb
 cache
 sbatch_logs
 .ipynb_checkpoints
+llavajp.egg-info

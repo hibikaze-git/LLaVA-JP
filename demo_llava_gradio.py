@@ -7,15 +7,15 @@ Enter model path: your-username/your-repo-id
 import gradio as gr
 import torch
 import transformers
-from llava.constants import DEFAULT_IMAGE_TOKEN, IMAGE_TOKEN_INDEX
-from llava.conversation import conv_templates
-from llava.model.llava_llama import LlavaLlamaForCausalLM
-from llava.train.arguments_dataclass import (
+from llavajp.constants import DEFAULT_IMAGE_TOKEN, IMAGE_TOKEN_INDEX
+from llavajp.conversation import conv_templates
+from llavajp.model.llava_llama import LlavaLlamaForCausalLM
+from llavajp.train.arguments_dataclass import (
     DataArguments,
     ModelArguments,
     TrainingArguments,
 )
-from llava.train.dataset import tokenizer_image_token
+from llavajp.train.dataset import tokenizer_image_token
 
 # argparseがHfArgumentParserと干渉するので、inputで受け取る
 model_path = input("Enter model path: ")

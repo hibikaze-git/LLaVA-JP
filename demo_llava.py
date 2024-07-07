@@ -4,11 +4,11 @@ import transformers
 from PIL import Image
 
 from transformers.generation.streamers import TextStreamer
-from llava.constants import DEFAULT_IMAGE_TOKEN, IMAGE_TOKEN_INDEX
-from llava.conversation import conv_templates, SeparatorStyle
-from llava.model.llava_gpt2 import LlavaGpt2ForCausalLM
-from llava.train.arguments_dataclass import ModelArguments, DataArguments, TrainingArguments
-from llava.train.dataset import tokenizer_image_token
+from llavajp.constants import DEFAULT_IMAGE_TOKEN, IMAGE_TOKEN_INDEX
+from llavajp.conversation import conv_templates, SeparatorStyle
+from llavajp.model.llava_gpt2 import LlavaGpt2ForCausalLM
+from llavajp.train.arguments_dataclass import ModelArguments, DataArguments, TrainingArguments
+from llavajp.train.dataset import tokenizer_image_token
 
 
 if __name__ == "__main__":

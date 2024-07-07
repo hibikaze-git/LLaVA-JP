@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llavajp"
+version = "0.1"
+description = "Towards GPT-4 like large language and visual assistant."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "torch", "transformers", "sentencepiece", "accelerate",
+    "peft", "bitsandbytes", "numpy", "scikit-learn",
+    "einops", "tqdm", "wandb", "gradio"
+]
+
+[tool.setuptools.packages.find]
+exclude = ["configs", "dataset", "imgs", "notebooks*", "prepare_datasets*", "sbatch*", "scripts*", "tools*"]

@@ -21,7 +21,7 @@ import torch.nn as nn
 from transformers import AutoConfig, AutoModelForCausalLM, LlamaForCausalLM, \
                          LlamaModel, LlamaConfig
 from transformers.modeling_outputs import CausalLMOutputWithPast
-from llava.model.llava_arch import LlavaMetaModel, LlavaMetaForCausalLM
+from llavajp.model.llava_arch import LlavaMetaModel, LlavaMetaForCausalLM
 
 
 class LlavaConfig(LlamaConfig):

@@ -23,7 +23,7 @@ from transformers import AutoConfig, AutoModelForCausalLM, \
 
 from transformers.modeling_outputs import CausalLMOutputWithPast
 
-from llava.model.llava_arch import LlavaMetaModel, LlavaMetaForCausalLM
+from llavajp.model.llava_arch import LlavaMetaModel, LlavaMetaForCausalLM
 
 
 class LlavaConfig(GPTNeoXConfig):
