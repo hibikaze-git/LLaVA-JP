@@ -18,7 +18,7 @@ cd /storage4/work/yamaguchi/LLaVA-JP
 
 bash scripts/finetune/finetune_accelerate.sh \
     ./configs/train/finetune/batch_128.json \
-    ./configs/image_encoder/siglip-base-patch16-256-multilingual.json \
+    ./configs/image_encoder/siglip-so400m-patch14-384.json \
     ./configs/dataset/v1_all_vg_stage_2.json \
     ./configs/model/tanuki-8b.json \
     ./output_llava/checkpoints/finetune-llava-jp-Tanuki-8B-vision-v1_all_vg \
