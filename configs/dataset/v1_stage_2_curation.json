@@ -1,6 +1,6 @@
 {
     "ja-vg-vqa": {
-        "data_path": "./dataset/v0/llava_visual_genome_ja_after_short_prompt_curation.json",
+        "data_path": "./dataset/v0/llava_visual_genome_ja.json",
         "image_folder": "./dataset/v0/images/stage2",
         "data_num": 300000
     },
