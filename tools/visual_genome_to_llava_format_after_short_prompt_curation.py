@@ -44,10 +44,10 @@ if __name__ == '__main__':
             short_answer_prompt = "1つの単語またはフレーズで回答してください。"
             question = qas["question"]
 
-            if check_abnormal_answer(qas["answer"]):
+            #if check_abnormal_answer(qas["answer"]):
                 #print(question)
                 #print(qas["answer"])
-                continue
+                #continue
 
             delimiters = ["。", "?", "？", " ", "　"]
 
