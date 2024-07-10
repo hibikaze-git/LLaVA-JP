@@ -44,6 +44,7 @@ def inference_fn(
     temperature,
     repetition_penalty,
     top_p,
+    no_repeat_ngram_size
 ):
     # prepare inputs
     # image pre-process
@@ -101,6 +102,7 @@ def inference_fn(
         max_new_tokens=max_len,
         repetition_penalty=repetition_penalty,
         use_cache=False,
+        no_repeat_ngram_size=no_repeat_ngram_size
     )
 
     output_ids = [
@@ -163,12 +165,21 @@ with gr.Blocks() as demo:
                     interactive=True,
                     label="Repetition Penalty",
                 )
+
+                no_repeat_ngram_size = gr.Slider(
+                    minimum=0,
+                    maximum=4,
+                    value=0,
+                    step=1,
+                    interactive=True,
+                    label="No Repeat Ngram Size",
+                )
             # button
             input_button = gr.Button(value="Submit")
         with gr.Column():
             output = gr.Textbox(label="Output")
 
-    inputs = [input_image, prompt, max_len, temperature, repetition_penalty, top_p]
+    inputs = [input_image, prompt, max_len, temperature, repetition_penalty, top_p, no_repeat_ngram_size]
     input_button.click(inference_fn, inputs=inputs, outputs=[output])
     prompt.submit(inference_fn, inputs=inputs, outputs=[output])
     img2txt_examples = gr.Examples(
