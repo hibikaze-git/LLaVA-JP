@@ -14,7 +14,7 @@ source ~/miniconda3/etc/profile.d/conda.sh
 conda activate llava-jp
 
 #cd /storage5/multimodal/LLaVA-JP
-cd /storage4/work/yamaguchi/LLaVA-JP
+cd /storage5/multimodal/work/yamaguchi/LLaVA-JP
 
 bash scripts/pretrain/pretrain_accelerate.sh \
     ./configs/train/pretrain/base.json \

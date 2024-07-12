@@ -9,6 +9,6 @@
     },
     "commoncatalog-cc-by-sa-ja": {
         "data_path": "./dataset/commoncatalog-cc-by-sa-ja/briefly_ja.json",
-        "image_folder": "/storage4/work/yamaguchi/create-data-for-vlm/datasets/commoncatalog-cc-by-sa/images"
+        "image_folder": "/storage5/multimodal/work/yamaguchi/create-data-for-vlm/datasets/commoncatalog-cc-by-sa/images"
     }
 }

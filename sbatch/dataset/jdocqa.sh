@@ -14,6 +14,6 @@ source ~/miniconda3/etc/profile.d/conda.sh
 conda activate llava-jp
 
 #cd /storage5/multimodal/LLaVA-JP
-cd /storage4/work/yamaguchi/LLaVA-JP
+cd /storage5/multimodal/work/yamaguchi/LLaVA-JP
 
 python tools/pdf_to_images.py ./dataset/jdocqa/pdf/pdf_files ./dataset/jdocqa/images --num_processes 20
