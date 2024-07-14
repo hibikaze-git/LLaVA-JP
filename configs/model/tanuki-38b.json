@@ -1,0 +1,5 @@
+{
+    "base_model": "llama",
+    "model_name_or_path": "team-hatakeyama-phase2/38b-iter-0015000",
+    "model_max_length": 8192
+}
