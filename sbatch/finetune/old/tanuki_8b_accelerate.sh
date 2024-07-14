@@ -14,6 +14,6 @@ source ~/miniconda3/etc/profile.d/conda.sh
 conda activate llava-jp
 
 #cd /storage5/multimodal/LLaVA-JP
-cd /storage4/work/yamaguchi/LLaVA-JP
+cd /storage5/multimodal/work/yamaguchi/LLaVA-JP
 
 bash scripts/finetune/finetune_tanuki_8b_accelerate.sh

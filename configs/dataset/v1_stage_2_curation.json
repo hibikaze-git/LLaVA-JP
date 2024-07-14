@@ -6,11 +6,11 @@
     },
     "commoncatalog-cc-by-sa-ja_detail": {
         "data_path": "./dataset/commoncatalog-cc-by-sa-ja/detail_ja_curation.json",
-        "image_folder": "/storage4/work/yamaguchi/create-data-for-vlm/datasets/commoncatalog-cc-by-sa/images"
+        "image_folder": "/storage5/multimodal/work/yamaguchi/create-data-for-vlm/datasets/commoncatalog-cc-by-sa/images"
     },
     "commoncatalog-cc-by-sa-ja_predict": {
         "data_path": "./dataset/commoncatalog-cc-by-sa-ja/predict_ja_curation.json",
-        "image_folder": "/storage4/work/yamaguchi/create-data-for-vlm/datasets/commoncatalog-cc-by-sa/images"
+        "image_folder": "/storage5/multimodal/work/yamaguchi/create-data-for-vlm/datasets/commoncatalog-cc-by-sa/images"
     },
     "commoncatalog-cc-by-ext": {
         "data_path": "./dataset/commoncatalog-cc-by-ext/phi3_caption_ja_curation.json",
@@ -22,6 +22,6 @@
     },
     "commoncatalog-cc-by-sa-ja-complex": {
         "data_path": "./dataset/commoncatalog-cc-by-sa-ja-complex/question_ja_curation.json",
-        "image_folder": "/storage4/work/yamaguchi/create-data-for-vlm/datasets/complex_reasoning/images"
+        "image_folder": "/storage5/multimodal/work/yamaguchi/create-data-for-vlm/datasets/complex_reasoning/images"
     }
 }
