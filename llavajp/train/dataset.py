@@ -226,6 +226,10 @@ class LazySupervisedDataset(Dataset):
                 random.shuffle(list_subset_data_dict)
                 list_subset_data_dict = list_subset_data_dict[:data_num]
 
+            print("========== subset data num ==========")
+            print(dataset_name, len(list_subset_data_dict))
+            print("=====================================")
+
             self.list_data_dict.extend(list_subset_data_dict)
 
         self.data_args = data_args
