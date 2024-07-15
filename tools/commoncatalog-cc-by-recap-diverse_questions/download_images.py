@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     for i, data in tqdm(enumerate(img_dataset), total=300_000):
         data["jpg"].save(
-            f"dataset/commoncatalog-cc-by/cc_300k_photoid/{data['photoid']}.jpg"
+            f"dataset/commoncatalog-cc-by/cc_300k_photoid/{data['photoid']}.{data['ext']}"
         )
 
         if i >= 300_000 - 1:
