@@ -3,6 +3,8 @@ wit_baseの準備
 python tools/wit_base/to_llava_format.py
 
 ========== count qa pairs ==========
+2000文字制限前: 358493
+2000文字制限後: 341842
 ====================================
 """
 
