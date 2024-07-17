@@ -1,0 +1,42 @@
+{
+    "ja-vg-vqa": {
+        "data_path": "./dataset/v0/llava_visual_genome_ja.json",
+        "image_folder": "./dataset/v0/images/stage2"
+    },
+    "commoncatalog-cc-by-sa-ja_detail": {
+        "data_path": "./dataset/commoncatalog-cc-by-sa-ja/detail_ja_calm3_curation.json",
+        "image_folder": "/storage5/multimodal/work/yamaguchi/create-data-for-vlm/datasets/commoncatalog-cc-by-sa/images"
+    },
+    "commoncatalog-cc-by-sa-ja_predict": {
+        "data_path": "./dataset/commoncatalog-cc-by-sa-ja/predict_ja_calm3_curation.json",
+        "image_folder": "/storage5/multimodal/work/yamaguchi/create-data-for-vlm/datasets/commoncatalog-cc-by-sa/images"
+    },
+    "commoncatalog-cc-by-ext": {
+        "data_path": "./dataset/commoncatalog-cc-by-ext/phi3_caption_ja_curation.json",
+        "image_folder": "./dataset/commoncatalog-cc-by/cc_300k"
+    },
+    "anime-with-caption-cc0": {
+        "data_path": "./dataset/anime-with-caption-cc0/phi3_caption_ja.json",
+        "image_folder": "./dataset/anime-with-caption-cc0/images"
+    },
+    "commoncatalog-cc-by-sa-ja-complex": {
+        "data_path": "./dataset/commoncatalog-cc-by-sa-ja-complex/question_ja_calm3_curation.json",
+        "image_folder": "/storage5/multimodal/work/yamaguchi/create-data-for-vlm/datasets/complex_reasoning/images"
+    },
+    "list_items_one_by_one_ja_detailed": {
+        "data_path": "./dataset/list_items_one_by_one_ja/detailed_ja.json",
+        "image_folder": "/storage5/multimodal/work/yamaguchi/create-data-for-vlm/datasets/list_items_one_by_one/train2017"
+    },
+    "list_items_one_by_one_ja_labels": {
+        "data_path": "./dataset/list_items_one_by_one_ja/labels_ja.json",
+        "image_folder": "/storage5/multimodal/work/yamaguchi/create-data-for-vlm/datasets/list_items_one_by_one/images"
+    },
+    "commoncatalog-cc-by-recap-diverse_questions": {
+        "data_path": "./dataset/commoncatalog-cc-by-recap-diverse_questions/question.json",
+        "image_folder": "./dataset/commoncatalog-cc-by/cc_300k_photoid"
+    },
+    "wit_base": {
+        "data_path": "./dataset/wit_base/wit_base_llava_format.json",
+        "image_folder": "/storage5/multimodal/work/yamaguchi/create-data-for-vlm/datasets/wit/images"
+    }
+}
