@@ -1,4 +1,5 @@
 import copy
+import glob
 import json
 import os
 import random
@@ -236,11 +237,16 @@ class LazySupervisedDataset(Dataset):
 
     def get_all_image_paths(self, image_folder):
         image_paths = {}
-        for root, dirs, files in os.walk(image_folder):
-            for file in tqdm(files):
-                if file in image_paths:
-                    raise ValueError(f"Duplicate image file name found: {file}")
-                image_paths[file] = os.path.join(root, file)
+        pattern = os.path.join(image_folder, '**/*.*')
+
+        for file_path in tqdm(glob.glob(pattern)):
+            if os.path.isfile(file_path):
+                file_name = os.path.basename(file_path)
+
+                if file_name in image_paths:
+                    raise ValueError(f"Duplicate image file name found: {file_name}")
+
+                image_paths[file_name] = file_path
         return image_paths
 
     def __len__(self):
