@@ -87,11 +87,12 @@ if __name__ == "__main__":
                     if answer:
                         answer = answer.strip().replace("\n", "")
 
-                    llava_formats.append(
-                        create_llava_format(
-                            random.choice(INSTRUCTION_POOLS), answer, image_filename
+                    if len(answer) <= 2000:
+                        llava_formats.append(
+                            create_llava_format(
+                                random.choice(INSTRUCTION_POOLS), answer, image_filename
+                            )
                         )
-                    )
 
     print("========== count qa pairs ==========")
     print(len(llava_formats))
