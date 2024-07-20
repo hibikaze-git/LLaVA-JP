@@ -236,6 +236,7 @@ def train():
         model_max_length=training_args.model_max_length,
         padding_side="right",
         use_fast=True,
+        trust_remote_code=True
     )
 
     tokenizer.pad_token = tokenizer.unk_token
