@@ -14,6 +14,26 @@ from transformers.trainer import (
 )
 
 
+def maybe_zero_3(param, ignore_status=False, name=None):
+    from deepspeed import zero
+    from deepspeed.runtime.zero.partition_parameters import ZeroParamStatus
+    if hasattr(param, "ds_id"):
+        if param.ds_status == ZeroParamStatus.NOT_AVAILABLE:
+            if not ignore_status:
+                print(name, 'no ignore status')
+        with zero.GatheredParameters([param]):
+            param = param.data.detach().cpu().clone()
+    else:
+        param = param.detach().cpu().clone()
+    return param
+
+
+def get_mm_adapter_state_maybe_zero_3(named_params, keys_to_match):
+    to_return = {k: t for k, t in named_params if any(key_match in k for key_match in keys_to_match)}
+    to_return = {k: maybe_zero_3(v, ignore_status=True, name=k).cpu() for k, v in to_return.items()}
+    return to_return
+
+
 def split_to_even_chunks(indices, lengths, num_chunks):
     """
     Split a list of indices into `chunks` chunks of roughly equal lengths.
@@ -221,7 +241,7 @@ class LLaVATrainer(Trainer):
             # Only save Adapter
             #keys_to_match = ['mm_projector', 'vision_resampler']
             keys_to_match = ['mm_projector']
-            weight_to_save = get_mm_adapter_state(self.model.named_parameters(), keys_to_match)
+            weight_to_save = get_mm_adapter_state_maybe_zero_3(self.model.named_parameters(), keys_to_match)
             #weight_to_save = self.model.named_parameters().detach().cpu().clone()
 
             if self.args.local_rank == 0 or self.args.local_rank == -1:
