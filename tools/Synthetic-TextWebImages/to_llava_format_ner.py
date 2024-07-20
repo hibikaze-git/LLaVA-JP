@@ -1,12 +1,14 @@
 """
 team-hatakeyama-phase2/Synthetic-TextWebImagesの準備
 python tools/Synthetic-TextWebImages/to_llava_format.py
+
 """
 
 import argparse
 import json
 import os
 import random
+from collections import Counter
 from pathlib import Path
 
 from datasets import load_dataset
@@ -51,6 +53,17 @@ INSTRUCTIONS = {
 DATA_PATH = "./dataset/Synthetic-TextWebImages/ner-wikipedia-dataset"
 
 
+def is_monochrome(image):
+    pixels = image.getdata()
+
+    first_pixel = pixels[0]
+
+    for pixel in pixels:
+        if pixel != first_pixel:
+            return False
+    return True
+
+
 def create_llava_format(question, answer, image_filename):
     """
     Args:
@@ -84,26 +97,28 @@ if __name__ == "__main__":
     llava_formats = {key: [] for key in INSTRUCTIONS.keys()}
 
     for i, data in tqdm(enumerate(dataset["train"])):
-        ext = data["image"].format
+        if not is_monochrome(data["image"]):
+            ext = data["image"].format
 
-        if ext == "JPEG":
-            image_filename = str(i) + "." + "jpg"
-        elif ext == "PNG":
-            image_filename = str(i) + "." + "png"
-        else:
-            print("unknown ext")
-            raise
+            if ext == "JPEG":
+                image_filename = str(i) + "." + "jpg"
+            elif ext == "PNG":
+                image_filename = str(i) + "." + "png"
+            else:
+                print("unknown ext")
+                raise
 
-        image_output_path = os.path.join(DATA_PATH, "images", image_filename)
+            image_output_path = os.path.join(DATA_PATH, "images", image_filename)
 
-        data["image"].save(image_output_path)
+            data["image"].save(image_output_path)
 
-        for key in INSTRUCTIONS.keys():
-            answer = data[key]
+            for key in INSTRUCTIONS.keys():
+                answer = data[key]
 
-            llava_formats[key].append(
-                create_llava_format(random.choice(INSTRUCTIONS[key]), data[key], image_filename)
-            )
+                if len(answer) <= 2000:
+                    llava_formats[key].append(
+                        create_llava_format(random.choice(INSTRUCTIONS[key]), answer, image_filename)
+                    )
 
     print("========== count qa pairs ==========")
     for key, item in llava_formats.items():
