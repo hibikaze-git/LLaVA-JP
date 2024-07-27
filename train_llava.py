@@ -161,6 +161,7 @@ def train():
         model = LlavaGpt2ForCausalLM.from_pretrained(
             model_args.model_name_or_path,
             cache_dir=training_args.cache_dir,
+            attn_implementation="eager",
             **bnb_model_from_pretrained_args
         )
     elif model_args.base_model == "gpt_neox":
