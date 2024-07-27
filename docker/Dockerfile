@@ -75,6 +75,8 @@ RUN pip install gradio
 
 RUN pip install PyMuPDF
 
+RUN pip install tf-keras
+
 RUN mkdir -p /tmp/own/docker/entrypoint
 COPY docker-entrypoint.sh /tmp/own/docker/entrypoint
 

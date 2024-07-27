@@ -9,7 +9,7 @@ numpy
 matplotlib
 tqdm
 pandas
-transformers[sentencepiece]
+transformers[sentencepiece]==4.43.1
 datasets
 evaluate
 accelerate
