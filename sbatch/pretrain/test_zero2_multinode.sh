@@ -17,7 +17,7 @@ conda activate llava-jp-multinode
 cd /storage5/multimodal/work/yamaguchi/LLaVA-JP
 
 bash scripts/pretrain/pretrain_accelerate_zero2_multinode.sh \
-    ./configs/train/pretrain/base.json \
+    ./configs/train/pretrain/batch_per_device_1.json \
     ./configs/image_encoder/siglip-so400m-patch14-384.json \
     ./configs/dataset/stair.json \
     ./configs/model/tanuki-8b.json \

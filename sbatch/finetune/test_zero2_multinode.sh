@@ -17,7 +17,7 @@ conda activate llava-jp-multinode
 cd /storage5/multimodal/work/yamaguchi/LLaVA-JP
 
 bash scripts/finetune/finetune_accelerate_zero2_multinode.sh \
-    ./configs/train/finetune/batch_128.json \
+    ./configs/train/finetune/batch_per_device_1.json \
     ./configs/image_encoder/siglip-so400m-patch14-384.json \
     ./configs/dataset/ja-vg-vqa.json \
     ./configs/model/tanuki-8b.json \
