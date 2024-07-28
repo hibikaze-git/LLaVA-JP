@@ -1,0 +1,5 @@
+{
+    "base_model": "llama",
+    "model_name_or_path": "elyza/ELYZA-japanese-Llama-2-13b",
+    "model_max_length": 8192
+}

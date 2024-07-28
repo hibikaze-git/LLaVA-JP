@@ -10,6 +10,7 @@ from llavajp import conversation as conversation_lib
 from llavajp.model.llava_gpt2 import LlavaGpt2ForCausalLM
 from llavajp.model.llava_gpt_neox import LlavaGptNeoxForCausalLM
 from llavajp.model.llava_llama import LlavaLlamaForCausalLM
+from llavajp.model.llava_mixtral import LlavaMixtralForCausalLM
 from llavajp.train.dataset import LazySupervisedDataset, DataCollatorForSupervisedDataset
 from llavajp.train.arguments_dataclass import ModelArguments, DataArguments, TrainingArguments
 from llavajp.train.llava_trainer import LLaVATrainer
@@ -176,6 +177,12 @@ def train():
             cache_dir=training_args.cache_dir,
             **bnb_model_from_pretrained_args
         )
+    elif model_args.base_model == "mixtral":
+        model = LlavaMixtralForCausalLM.from_pretrained(
+            model_args.model_name_or_path,
+            cache_dir=training_args.cache_dir,
+            **bnb_model_from_pretrained_args
+        )
     else:
         print(f"{model_args.base_model} is not found")
         exit(-1)
@@ -230,6 +237,7 @@ def train():
         model_max_length=training_args.model_max_length,
         padding_side="right",
         use_fast=True,
+        trust_remote_code=True
     )
 
     tokenizer.pad_token = tokenizer.unk_token

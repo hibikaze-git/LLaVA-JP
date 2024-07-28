@@ -1,0 +1,5 @@
+{
+    "base_model": "mixtral",
+    "model_name_or_path": "hibikaze/tiny_mixtral_ja_with_tokenizer",
+    "model_max_length": 8192
+}

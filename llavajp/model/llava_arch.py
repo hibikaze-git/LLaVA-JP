@@ -79,7 +79,7 @@ class LlavaMetaModel:
 
 
 class LlavaMetaForCausalLM(ABC):
-    base_model = "" # gpt2 or llama or gptneox
+    base_model = "" # gpt2 or llama or gptneox or mixtral
 
     @abstractmethod
     def get_model(self):
@@ -100,6 +100,8 @@ class LlavaMetaForCausalLM(ABC):
             return self.embed_in(input_ids) # NeoX
         elif self.base_model == "llama":
             return self.get_model().embed_tokens(input_ids) # Llama
+        elif self.base_model == "mixtral":
+            return self.get_model().embed_tokens(input_ids) # Mixtral
 
     def prepare_inputs_labels_for_multimodal(
         self, input_ids, position_ids, attention_mask, past_key_values, labels, images
