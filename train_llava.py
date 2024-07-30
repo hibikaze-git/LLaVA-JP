@@ -114,9 +114,13 @@ def find_all_linear_names(model):
 def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer,
                                 data_args) -> Dict:
     """Make dataset and collator for supervised fine-tuning."""
+
+    with open(data_args.dataset_paths, "r", encoding="utf-8") as f:
+        dataset_paths = json.load(f)
+
     train_dataset = LazySupervisedDataset(
         tokenizer=tokenizer,
-        dataset_paths=json.loads(data_args.dataset_paths),
+        dataset_paths=dataset_paths,
         data_args=data_args
     )
 

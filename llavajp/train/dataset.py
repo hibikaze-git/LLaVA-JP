@@ -192,9 +192,6 @@ class LazySupervisedDataset(Dataset):
 
         self.image_paths_dict = {}
 
-        with open(dataset_paths, "r", encoding="utf-8") as f:
-            dataset_paths = json.load(f)
-
         for dataset_name, dataset_path_dict in dataset_paths.items():
             all_image_paths = self.get_all_image_paths(dataset_path_dict["image_folder"])
             self.image_paths_dict[dataset_name] = all_image_paths
