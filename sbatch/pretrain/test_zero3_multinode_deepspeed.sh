@@ -21,6 +21,6 @@ bash scripts/pretrain/pretrain_deepspeed_zero3_multinode.sh \
     ./configs/image_encoder/siglip-so400m-patch14-384.json \
     ./configs/dataset/stair.json \
     ./configs/model/tanuki-8b.json \
-    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-zero2-multinode-test \
+    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-zero3-multinode-test \
     llava-jp-test \
-    Tanuki-8B-vision-zero2-multinode-test
+    Tanuki-8B-vision-zero3-multinode-test
