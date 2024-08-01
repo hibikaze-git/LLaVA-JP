@@ -88,7 +88,7 @@ MODEL_MAX_LENGTH=$(jq -r '.model_max_length' $MODEL_CONFIG_FILE)
 
 
 # シェルスクリプトの実行
-accelerate launch --config_file configs/accelerate/finetune/accelerate_config_zero1.yaml \
+accelerate launch --config_file configs/accelerate/finetune/accelerate_config_zero2_multinode.yaml \
 train_llava.py \
     --base_model "$BASE_MODEL" \
     --model_name_or_path "$MODEL_NAME_OR_PATH" \

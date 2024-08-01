@@ -99,7 +99,7 @@ python train_llava.py \
     --pretrain_mm_mlp_adapter "$PRETRAIN_MM_MLP_ADAPTER" \
     --mm_projector_type "$MM_PROJECTOR_TYPE" \
     --mm_vision_select_feature "$MM_VISION_SELECT_FEATURE" \
-    --dataset_paths $(jq -c '.' $DATASET_CONFIG_FILE) \
+    --dataset_paths "$DATASET_CONFIG_FILE" \
     --lazy_preprocess "$LAZY_PREPROCESS" \
     --is_multimodal "$IS_MULTIMODAL" \
     --image_aspect_ratio "$IMAGE_ASPECT_RATIO" \

@@ -8,11 +8,10 @@ MODEL_CONFIG_FILE=$4
 OUTPUT_DIR=$5
 WANDB_PROJECT=$6
 WANDB_NAME=$7
-PRETRAIN_MM_MLP_ADAPTER=$8
 
 
 # 引数が指定されていない場合はエラーメッセージを表示して終了
-if [ -z "$CONFIG_FILE" ] || [ -z "$IMAGE_ENCODER_CONFIG_FILE" ] || [ -z "$DATASET_CONFIG_FILE" ] || [ -z "$MODEL_CONFIG_FILE" ] || [ -z "$OUTPUT_DIR" ] || [ -z "$WANDB_PROJECT" ] || [ -z "$WANDB_NAME" ] || [ -z "$PRETRAIN_MM_MLP_ADAPTER" ]; then
+if [ -z "$CONFIG_FILE" ] || [ -z "$IMAGE_ENCODER_CONFIG_FILE" ] || [ -z "$DATASET_CONFIG_FILE" ] || [ -z "$MODEL_CONFIG_FILE" ] || [ -z "$OUTPUT_DIR" ] || [ -z "$WANDB_PROJECT" ] || [ -z "$WANDB_NAME" ]; then
     echo "Invalid argument"
     exit 1
 fi
@@ -35,11 +34,6 @@ fi
 
 if [ ! -f "$MODEL_CONFIG_FILE" ]; then
     echo "Error: Config file $MODEL_CONFIG_FILE not found."
-    exit 1
-fi
-
-if [ ! -f "$PRETRAIN_MM_MLP_ADAPTER" ]; then
-    echo "Error: $PRETRAIN_MM_MLP_ADAPTER not found."
     exit 1
 fi
 
@@ -88,7 +82,7 @@ MODEL_MAX_LENGTH=$(jq -r '.model_max_length' $MODEL_CONFIG_FILE)
 
 
 # シェルスクリプトの実行
-accelerate launch --config_file configs/accelerate/finetune/accelerate_config_zero1.yaml \
+deepspeed --no_local_rank --master_port 29515 --hostfile "/storage5/multimodal/work/yamaguchi/LLaVA-JP/configs/hostfiles/hostfile" \
 train_llava.py \
     --base_model "$BASE_MODEL" \
     --model_name_or_path "$MODEL_NAME_OR_PATH" \
@@ -97,7 +91,6 @@ train_llava.py \
     --tune_mm_mlp_adapter "$TUNE_MM_MLP_ADAPTER" \
     --vision_tower "$VISION_TOWER" \
     --mm_vision_select_layer "$MM_VISION_SELECT_LAYER" \
-    --pretrain_mm_mlp_adapter "$PRETRAIN_MM_MLP_ADAPTER" \
     --mm_projector_type "$MM_PROJECTOR_TYPE" \
     --mm_vision_select_feature "$MM_VISION_SELECT_FEATURE" \
     --dataset_paths "$DATASET_CONFIG_FILE" \
@@ -133,4 +126,5 @@ train_llava.py \
     --wandb_project "$WANDB_PROJECT" \
     --wandb_name "$WANDB_NAME" \
     --scales $SCALES \
-    --image_size $IMAGE_SIZE
+    --image_size $IMAGE_SIZE \
+    --deepspeed "/storage5/multimodal/work/yamaguchi/LLaVA-JP/configs/deepspeed/zero3_multi_node.json"

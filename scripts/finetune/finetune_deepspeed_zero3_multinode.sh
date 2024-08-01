@@ -88,7 +88,7 @@ MODEL_MAX_LENGTH=$(jq -r '.model_max_length' $MODEL_CONFIG_FILE)
 
 
 # シェルスクリプトの実行
-accelerate launch --config_file configs/accelerate/finetune/accelerate_config_zero1.yaml \
+deepspeed --no_local_rank --master_port 29515 --hostfile "/storage5/multimodal/work/yamaguchi/LLaVA-JP/configs/hostfiles/hostfile" \
 train_llava.py \
     --base_model "$BASE_MODEL" \
     --model_name_or_path "$MODEL_NAME_OR_PATH" \
@@ -133,4 +133,5 @@ train_llava.py \
     --wandb_project "$WANDB_PROJECT" \
     --wandb_name "$WANDB_NAME" \
     --scales $SCALES \
-    --image_size $IMAGE_SIZE
+    --image_size $IMAGE_SIZE \
+    --deepspeed "/storage5/multimodal/work/yamaguchi/LLaVA-JP/configs/deepspeed/zero3_multi_node.json"
