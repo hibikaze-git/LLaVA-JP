@@ -19,8 +19,8 @@ cd /storage5/multimodal/work/yamaguchi/LLaVA-JP
 bash scripts/pretrain/pretrain_deepspeed_zero3_multinode.sh \
     ./configs/train/pretrain/base_tanuki_moe.json \
     ./configs/image_encoder/siglip-so400m-patch14-384.json \
-    ./configs/dataset/v1_stage_1.json \
+    ./configs/dataset/stair.json \
     ./configs/model/tanuki-moe.json \
-    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-moe-vision-zero3-multinode \
-    llava-jp-stage1 \
-    Tanuki-moe-vision-zero3-multinode
+    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-moe-vision-zero3-multinode-test \
+    llava-jp-test \
+    Tanuki-moe-vision-zero3-multinode-test

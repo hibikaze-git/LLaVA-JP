@@ -19,9 +19,9 @@ cd /storage5/multimodal/work/yamaguchi/LLaVA-JP
 bash scripts/finetune/finetune_deepspeed_zero3_multinode.sh \
     ./configs/train/finetune/base_tanuki_moe.json \
     ./configs/image_encoder/siglip-so400m-patch14-384.json \
-    ./configs/dataset/v4_stage_2.json \
+    ./configs/dataset/ja-vg-vqa.json \
     ./configs/model/tanuki-moe.json \
-    ./output_llava/checkpoints/finetune-llava-jp-Tanuki-moe-vision-zero3-multinode \
-    llava-jp-stage2 \
-    Tanuki-moe-vision-zero3-multinode \
-    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-moe-vision-zero3-multinode/mm_projector.bin
+    ./output_llava/checkpoints/finetune-llava-jp-Tanuki-moe-vision-zero3-multinode-test \
+    llava-jp-test \
+    Tanuki-moe-vision-zero3-multinode-test \
+    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-moe-vision-zero3-multinode-test/mm_projector.bin
