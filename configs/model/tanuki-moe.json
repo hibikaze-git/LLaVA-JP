@@ -1,0 +1,5 @@
+{
+    "base_model": "tanuki",
+    "model_name_or_path": "./hf_models/Llama-3-8b-MoE-5th_tonyu_iter_20000",
+    "model_max_length": 8192
+}
