@@ -11,7 +11,7 @@
 
 # Command(s) goes here
 source ~/miniconda3/etc/profile.d/conda.sh
-conda activate llava-jp-multinode
+conda activate llava-jp-deepspeed
 
 #cd /storage5/multimodal/LLaVA-JP
 cd /storage5/multimodal/work/yamaguchi/LLaVA-JP
