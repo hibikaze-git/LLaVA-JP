@@ -24,80 +24,121 @@ docker compose exec ubuntu-cuda bash
 
 ### docker以外
 - ./docker/Dockerfileを参照して環境構築
-- wandb loginしておく
+- wandb loginしておく必要があります
 
 ## データの準備
-- 以下を実行し、STAIR Captions(商用利用可能な画像のみ), Japanese Visual Genome VQA datasetを./datasetに配置
-- Stage1: 11k, Stage2: 800k
+以下で指定しているjson・画像が保存されているディレクトリを準備する必要があります。
+```
+configs/dataset/v1_stage_1.json
+configs/dataset/v4_stage_2.json
+```
+
+### v1_stage_1
+stair
 ```
 bash prepare_datasets/v0.sh
+```
+cc300k
+```
+python tools/commoncatalog_300k
+```
+commoncatalog-cc-by-sa-ja
+```
+tools/commoncatalog-cc-by-sa-ja/README.md参照
+```
+
+### v4_stage_2
+ja-vg-vqa
+```
+v1_stage_1のstairと一緒に準備される
+```
+commoncatalog-cc-by-sa-ja_detail  
+commoncatalog-cc-by-sa-ja_predict
+```
+v1_stage_1のcommoncatalog-cc-by-sa-jaと一緒に準備される
+```
+commoncatalog-cc-by-ext
+```
+python tools/commoncatalog-cc-by-ext/to_llava_format_curation.py
+```
+anime-with-caption-cc0
+```
+python tools/anime-with-caption-cc0/to_llava_format.py
+```
+commoncatalog-cc-by-sa-ja-complex
+```
+tools/commoncatalog-cc-by-sa-ja-complex/README.md参照
+```
+list_items_one_by_one_ja_detailed
+```
+tools/list_items_one_by_one_ja/README.md参照
+```
+commoncatalog-cc-by-recap-diverse_questions
+```
+python tools/commoncatalog-cc-by-recap-diverse_questions/download_images.py
+python tools/commoncatalog-cc-by-recap-diverse_questions/to_llava_format.py
+```
+wit_base
+```
+tools/wit_base/README.md参照
+```
+ner-wikipedia-dataset  
+wikipedia-22-12-ja-embeddings
+```
+python tools/Synthetic-TextWebImages/to_llava_format_ner.py
+python tools/Synthetic-TextWebImages/to_llava_format_wiki.py
+```
+TextOCR
+```
+python tools/TextOCR/to_llava_format.py
 ```
 
 ## 学習
 ### Stage1(事前学習)
-シングルGPU
-```
-bash scripts/pretrain/pretrain.sh \
-    ./configs/train/pretrain/base.json \
-    ./configs/image_encoder/siglip-base-patch16-256-multilingual.json \
-    ./configs/dataset/cc300k.json \
-    ./configs/model/tanuki-8b.json \
-    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-cc300k-s2_siglip_256 \
-    llava-jp-stage1 \
-    Tanuki-8B-vision-cc300k-s2_siglip_256
-```
-マルチGPU（./configs/accelerate_config_zero1.yamlを環境に合わせて変更）
+Tanuki-8B
 ```
 bash scripts/pretrain/pretrain_accelerate.sh \
     ./configs/train/pretrain/base.json \
-    ./configs/image_encoder/siglip-base-patch16-256-multilingual.json \
-    ./configs/dataset/cc300k.json \
+    ./configs/image_encoder/siglip-so400m-patch14-384.json \
+    ./configs/dataset/v1_stage_1.json \
     ./configs/model/tanuki-8b.json \
-    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-cc300k-s2_siglip_256 \
+    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-v1 \
     llava-jp-stage1 \
-    Tanuki-8B-vision-cc300k-s2_siglip_256
+    Tanuki-8B-vision-v1
 ```
 
 ### Stage2(ファインチューニング)
---pretrain_mm_mlp_adapterを適宜変更して実行  
-<br/>
-シングルGPU
-```
-bash scripts/finetune/finetune.sh \
-    ./configs/train/finetune/base.json \
-    ./configs/image_encoder/siglip-base-patch16-256-multilingual.json \
-    ./configs/dataset/ja-vg-vqa.json \
-    ./configs/model/tanuki-8b.json \
-    ./output_llava/checkpoints/finetune-llava-jp-Tanuki-8B-vision-cc300k_j-vg-vqa-s2_siglip_256 \
-    llava-jp-stage2 \
-    Tanuki-8B-vision-cc300k_j-vg-vqa-s2_siglip_256 \
-    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-cc300k-s2_siglip_256/mm_projector.bin
-```
-マルチGPU（./configs/accelerate_config_zero1.yamlを環境に合わせて変更）
+Tanuki-8B
 ```
 bash scripts/finetune/finetune_accelerate.sh \
-    ./configs/train/finetune/base.json \
-    ./configs/image_encoder/siglip-base-patch16-256-multilingual.json \
-    ./configs/dataset/ja-vg-vqa.json \
+    ./configs/train/finetune/batch_128.json \
+    ./configs/image_encoder/siglip-so400m-patch14-384.json \
+    ./configs/dataset/v4_stage_2.json \
     ./configs/model/tanuki-8b.json \
-    ./output_llava/checkpoints/finetune-llava-jp-Tanuki-8B-vision-cc300k_j-vg-vqa-s2_siglip_256 \
+    ./output_llava/checkpoints/finetune-llava-jp-Tanuki-8B-vision-v4 \
     llava-jp-stage2 \
-    Tanuki-8B-vision-cc300k_j-vg-vqa-s2_siglip_256 \
-    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-cc300k-s2_siglip_256/mm_projector.bin
+    Tanuki-8B-vision-v4 \
+    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-v1/mm_projector.bin
 ```
 
-### モデルのアップロード
-- まずhuggingfaceにモデル用のリポジトリを新規作成して置く必要がある
-- アップロードにはupload_model.pyを使用する。GPUは不要
-- モデルの保存先、リポジトリ名を変更する
-
-## モデルの使い方
-- demo_llava_gradio.pyを使用することで入出力を試せる
-- Enter model path: と表示されるので、huggingfaceのリポジトリ名入力
-- gradioがインストールされていれば、以下を実行し、localhost:7860などで画面にアクセスできる
-
+### モデルのHFへのアップロード
+- HuggingFaceにモデル用のリポジトリを新規作成したあと、以下を実行
 ```
 python upload_model.py ./path/to/local/folder your-username/your-repo-id
+```
+
+## モデルの使い方
+Tanuki-8B
+```
+以下をgoogle colabで実行
+demo_llava_gradio.ipynb
+
+ローカルの場合は以下も使用可能
+python demo_llava_gradio.py
+```
+
+Tanuki-8x8B(整備中)
+```
 ```
 
 <br/>
