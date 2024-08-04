@@ -11,6 +11,7 @@ from llavajp.model.llava_gpt2 import LlavaGpt2ForCausalLM
 from llavajp.model.llava_gpt_neox import LlavaGptNeoxForCausalLM
 from llavajp.model.llava_llama import LlavaLlamaForCausalLM
 from llavajp.model.llava_mixtral import LlavaMixtralForCausalLM
+from llavajp.model.llava_tanuki import LlavaTanukiForCausalLM
 from llavajp.train.dataset import LazySupervisedDataset, DataCollatorForSupervisedDataset
 from llavajp.train.arguments_dataclass import ModelArguments, DataArguments, TrainingArguments
 from llavajp.train.llava_trainer import LLaVATrainer
@@ -185,6 +186,13 @@ def train():
         model = LlavaMixtralForCausalLM.from_pretrained(
             model_args.model_name_or_path,
             cache_dir=training_args.cache_dir,
+            **bnb_model_from_pretrained_args
+        )
+    elif model_args.base_model == "tanuki":
+        model = LlavaTanukiForCausalLM.from_pretrained(
+            model_args.model_name_or_path,
+            cache_dir=training_args.cache_dir,
+            trust_remote_code=True,
             **bnb_model_from_pretrained_args
         )
     else:
