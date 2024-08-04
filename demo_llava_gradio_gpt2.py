@@ -1,5 +1,5 @@
 """
-hibikaze/Tanuki-8B-vision-cc300k_j-vg-vqa-s2_siglip_256
+python demo_llava_gradio_gpt2.py
 
 Enter model path: your-username/your-repo-id
 """
