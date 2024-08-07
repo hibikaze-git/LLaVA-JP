@@ -59,11 +59,11 @@ v1_stage_1のcommoncatalog-cc-by-sa-jaと一緒に準備される
 ```
 commoncatalog-cc-by-ext
 ```
-python tools/commoncatalog-cc-by-ext/to_llava_format_curation.py
+bash prepare_datasets/commoncatalog-cc-by-ext.sh
 ```
 anime-with-caption-cc0
 ```
-python tools/anime-with-caption-cc0/to_llava_format.py
+bash prepare_datasets/anime-with-caption-cc0.sh
 ```
 commoncatalog-cc-by-sa-ja-complex
 ```
@@ -76,7 +76,7 @@ tools/list_items_one_by_one_ja/README.md参照
 commoncatalog-cc-by-recap-diverse_questions
 ```
 python tools/commoncatalog-cc-by-recap-diverse_questions/download_images.py
-python tools/commoncatalog-cc-by-recap-diverse_questions/to_llava_format.py
+bash prepare_datasets/commoncatalog-cc-by-recap-diverse_questions.sh
 ```
 wit_base
 ```
@@ -85,12 +85,11 @@ tools/wit_base/README.md参照
 ner-wikipedia-dataset  
 wikipedia-22-12-ja-embeddings
 ```
-python tools/Synthetic-TextWebImages/to_llava_format_ner.py
-python tools/Synthetic-TextWebImages/to_llava_format_wiki.py
+bash prepare_datasets/Synthetic-TextWebImages.sh
 ```
 TextOCR
 ```
-python tools/TextOCR/to_llava_format.py
+bash prepare_datasets/TextOCR.sh
 ```
 
 ## 学習
