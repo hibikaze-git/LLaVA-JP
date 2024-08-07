@@ -106,6 +106,18 @@ bash scripts/pretrain/pretrain_accelerate.sh \
     Tanuki-8B-vision-v1
 ```
 
+Tanuki-8x8B
+```
+bash scripts/pretrain/pretrain_deepspeed_zero3_multinode.sh \
+    ./configs/train/pretrain/base_tanuki_moe.json \
+    ./configs/image_encoder/siglip-so400m-patch14-384.json \
+    ./configs/dataset/v1_stage_1.json \
+    ./configs/model/tanuki-moe.json \
+    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-moe-vision-zero3-multinode \
+    llava-jp-stage1 \
+    Tanuki-moe-vision-zero3-multinode
+```
+
 ### Stage2(ファインチューニング)
 Tanuki-8B
 ```
@@ -118,6 +130,19 @@ bash scripts/finetune/finetune_accelerate.sh \
     llava-jp-stage2 \
     Tanuki-8B-vision-v4 \
     ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-8B-vision-v1/mm_projector.bin
+```
+
+Tanuki-8x8B
+```
+bash scripts/finetune/finetune_deepspeed_zero3_multinode.sh \
+    ./configs/train/finetune/base_tanuki_moe.json \
+    ./configs/image_encoder/siglip-so400m-patch14-384.json \
+    ./configs/dataset/v4_stage_2.json \
+    ./configs/model/tanuki-moe.json \
+    ./output_llava/checkpoints/finetune-llava-jp-Tanuki-moe-vision-zero3-multinode \
+    llava-jp-stage2 \
+    Tanuki-moe-vision-zero3-multinode \
+    ./output_llava/checkpoints/pretrain-llava-jp-Tanuki-moe-vision-zero3-multinode/mm_projector.bin
 ```
 
 ### モデルのHFへのアップロード
@@ -134,10 +159,6 @@ demo_llava_gradio.ipynb
 
 ローカルの場合は以下も使用可能
 python demo_llava_gradio.py
-```
-
-Tanuki-8x8B(整備中)
-```
 ```
 
 <br/>
