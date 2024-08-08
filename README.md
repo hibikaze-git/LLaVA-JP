@@ -161,6 +161,10 @@ demo_llava_gradio.ipynb
 python demo_llava_gradio.py
 ```
 
+## Contributors
+- [Osakana7777777](https://github.com/Osakana7777777)
+- [hibikaze-git](https://github.com/hibikaze-git)
+
 <br/>
 
 <br/>
